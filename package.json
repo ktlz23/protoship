@@ -1,12 +1,16 @@
 {
-  "name": "poc-restructurer-mcp-server",
-  "version": "0.1.0",
-  "description": "MCP server that transforms AI-generated HTML prototypes into production-ready project scaffolds",
+  "name": "protoship",
+  "version": "1.0.0",
+  "description": "Turn any AI-generated HTML prototype into a production-ready app in minutes — guided scaffolding, opinionated stacks, and independent code review, all inside Claude Code.",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
-    "poc-restructurer-mcp": "dist/index.js"
+    "protoship": "dist/cli.js"
   },
+  "files": [
+    "dist",
+    "SKILL.md"
+  ],
   "scripts": {
     "start": "node dist/index.js",
     "dev": "tsx watch src/index.ts",

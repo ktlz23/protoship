@@ -25,34 +25,12 @@ That's it. No API key needed.
 ## Installation
 
 ```bash
-git clone https://github.com/your-org/poc-restructurer-mcp-server
-cd poc-restructurer-mcp-server
-npm install && npm run build
+npx protoship
 ```
 
-## Add to Claude Code
+That's it. The installer automatically configures Claude Code and installs the guided workflow skill. Restart Claude Code and say:
 
-Add to `~/.claude/settings.json`:
-
-```json
-{
-  "mcpServers": {
-    "poc-restructurer": {
-      "command": "node",
-      "args": ["/absolute/path/to/poc-restructurer-mcp-server/dist/index.js"]
-    }
-  }
-}
-```
-
-Then install the guided workflow skill:
-
-```bash
-mkdir -p ~/.claude/skills/poc-restructurer
-cp SKILL.md ~/.claude/skills/poc-restructurer/SKILL.md
-```
-
-Restart Claude Code and say: *"I have an HTML prototype at ~/Downloads/app.html — help me turn it into a real app."*
+*"I have an HTML prototype at ~/Downloads/app.html — help me turn it into a real app."*
 
 ## How a session works
 
