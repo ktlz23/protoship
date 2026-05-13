@@ -1,6 +1,6 @@
 {
   "name": "protoship",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Turn any AI-generated HTML prototype into a production-ready app in minutes — guided scaffolding, opinionated stacks, and independent code review, all inside Claude Code.",
   "type": "module",
   "main": "dist/index.js",

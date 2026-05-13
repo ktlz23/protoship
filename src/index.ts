@@ -10,7 +10,7 @@ import { registerGetStackTemplateTool } from "./tools/get-stack-template.js";
 import { registerListProjectsTool } from "./tools/list-projects.js";
 
 const server = new McpServer({
-  name: "poc-restructurer-mcp-server",
+  name: "protoship",
   version: "0.2.0",
 });
 

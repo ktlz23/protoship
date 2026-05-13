@@ -71,27 +71,27 @@ Three independent specialist subagents review the generated code in parallel —
 
 | Tool | Step | What it does |
 |------|------|-------------|
-| `poc_list_projects` | 0 | Lists previously scaffolded projects and their status (for session recovery) |
-| `poc_read_html` | 1 | Reads the HTML prototype and extracts app type, features, and clarification questions |
-| `poc_check_prerequisites` | 3 | Checks that required CLI tools are installed |
-| `poc_get_stack_template` | 2–4 | Returns opinionated stack configs with pinned dependencies, env vars, and scaffold instructions |
-| `poc_write_files` | 4 | Writes the generated project files to disk and saves project state |
-| `poc_read_project_files` | 5 | Reads all project files and returns specialist review checklists for parallel quality review |
+| `protoship_list_projects` | 0 | Lists previously scaffolded projects and their status (for session recovery) |
+| `protoship_read_html` | 1 | Reads the HTML prototype and extracts app type, features, and clarification questions |
+| `protoship_check_prerequisites` | 3 | Checks that required CLI tools are installed |
+| `protoship_get_stack_template` | 2–4 | Returns opinionated stack configs with pinned dependencies, env vars, and scaffold instructions |
+| `protoship_write_files` | 4 | Writes the generated project files to disk and saves project state |
+| `protoship_read_project_files` | 5 | Reads all project files and returns specialist review checklists for parallel quality review |
 
 Claude handles all analysis, recommendation, code generation, and review orchestration. The tools handle only I/O.
 
 ## How the quality review works
 
-After scaffolding, Claude calls `poc_read_project_files`, then spawns **3 Agent subagents in parallel** — one each for security, architecture, and code quality. Each subagent receives only the project files and its specialist checklist — no conversation history, no HTML context. They review the code as if seeing it for the first time.
+After scaffolding, Claude calls `protoship_read_project_files`, then spawns **3 Agent subagents in parallel** — one each for security, architecture, and code quality. Each subagent receives only the project files and its specialist checklist — no conversation history, no HTML context. They review the code as if seeing it for the first time.
 
 Composite score: `security×0.40 + architecture×0.35 + code_quality×0.25`
 
 ## Session recovery
 
 If a session is interrupted (closed tab, out of credits, etc.), the plugin automatically detects where you left off:
-- Project state is saved to `~/.poc-restructurer/projects/` after scaffolding
-- `poc_list_projects` at session start detects in-progress projects
-- Review completion is tracked via a `.poc-review-done` marker file
+- Project state is saved to `~/.protoship/projects/` after scaffolding
+- `protoship_list_projects` at session start detects in-progress projects
+- Review completion is tracked via a `.protoship-review-done` marker file
 
 ## License
 

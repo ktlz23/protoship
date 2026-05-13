@@ -42,7 +42,7 @@ function runInstaller(): void {
   console.log("✓  Claude Code configured (~/.claude/settings.json)");
 
   // 2. Install the guided workflow skill
-  const skillDir = path.join(settingsDir, "skills", "poc-restructurer");
+  const skillDir = path.join(settingsDir, "skills", "protoship");
   fs.mkdirSync(skillDir, { recursive: true });
 
   const skillSrc = path.join(path.dirname(new URL(import.meta.url).pathname), "..", "SKILL.md");
@@ -50,7 +50,7 @@ function runInstaller(): void {
 
   if (fs.existsSync(skillSrc)) {
     fs.copyFileSync(skillSrc, skillDest);
-    console.log("✓  Skill installed (~/.claude/skills/poc-restructurer/SKILL.md)");
+    console.log("✓  Skill installed (~/.claude/skills/protoship/SKILL.md)");
   } else {
     console.warn("⚠  SKILL.md not found — skill not installed. You can copy it manually from the repo.");
   }

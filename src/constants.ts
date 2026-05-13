@@ -6,7 +6,7 @@ export const MAX_PROJECT_FILES_FOR_REVIEW = 50;
 export const MAX_REVIEW_CONTENT_CHARS = 120_000;
 export const CHARACTER_LIMIT = 25_000;
 
-export const POC_STATE_DIR = path.join(os.homedir(), ".poc-restructurer", "projects");
+export const PROTOSHIP_STATE_DIR = path.join(os.homedir(), ".protoship", "projects");
 
 export const IGNORED_DIRS = new Set([
   "node_modules", ".git", "dist", "build", ".next", ".nuxt",

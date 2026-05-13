@@ -2,7 +2,7 @@ import { z } from "zod";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import * as fs from "fs";
 import * as path from "path";
-import { POC_STATE_DIR } from "../constants.js";
+import { PROTOSHIP_STATE_DIR } from "../constants.js";
 import { STACK_TEMPLATES } from "../stack-templates.js";
 
 export interface ProjectState {
@@ -22,8 +22,8 @@ const InputSchema = z.object({}).strict();
 
 export function saveProjectState(state: ProjectState): void {
   try {
-    fs.mkdirSync(POC_STATE_DIR, { recursive: true });
-    const filePath = path.join(POC_STATE_DIR, `${state.project_name}.json`);
+    fs.mkdirSync(PROTOSHIP_STATE_DIR, { recursive: true });
+    const filePath = path.join(PROTOSHIP_STATE_DIR, `${state.project_name}.json`);
     fs.writeFileSync(filePath, JSON.stringify(state, null, 2), "utf-8");
   } catch {
     // Silent — state persistence must never block the main workflow
@@ -32,7 +32,7 @@ export function saveProjectState(state: ProjectState): void {
 
 export function registerListProjectsTool(server: McpServer): void {
   server.registerTool(
-    "poc_list_projects",
+    "protoship_list_projects",
     {
       title: "List Projects",
       description: `Lists all previously scaffolded projects and their current status.
@@ -59,7 +59,7 @@ Returns:
     async () => {
       const projects: ProjectEntry[] = [];
 
-      if (!fs.existsSync(POC_STATE_DIR)) {
+      if (!fs.existsSync(PROTOSHIP_STATE_DIR)) {
         return {
           content: [{
             type: "text" as const,
@@ -70,7 +70,7 @@ Returns:
 
       let files: string[];
       try {
-        files = fs.readdirSync(POC_STATE_DIR).filter((f) => f.endsWith(".json"));
+        files = fs.readdirSync(PROTOSHIP_STATE_DIR).filter((f) => f.endsWith(".json"));
       } catch {
         return {
           content: [{
@@ -82,13 +82,13 @@ Returns:
 
       for (const file of files) {
         try {
-          const raw = fs.readFileSync(path.join(POC_STATE_DIR, file), "utf-8");
+          const raw = fs.readFileSync(path.join(PROTOSHIP_STATE_DIR, file), "utf-8");
           const state = JSON.parse(raw) as ProjectState;
 
           const dirExists = fs.existsSync(state.project_directory);
           const reviewDone =
             dirExists &&
-            fs.existsSync(path.join(state.project_directory, ".poc-review-done"));
+            fs.existsSync(path.join(state.project_directory, ".protoship-review-done"));
 
           const status: ProjectEntry["status"] = !dirExists
             ? "directory_missing"

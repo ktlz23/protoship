@@ -12,7 +12,7 @@ const InputSchema = z.object({
 
 export function registerReadHtmlTool(server: McpServer): void {
   server.registerTool(
-    "poc_read_html",
+    "protoship_read_html",
     {
       title: "Read HTML Prototype",
       description: `Reads an HTML prototype file and returns its full content for analysis.

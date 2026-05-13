@@ -23,7 +23,7 @@ const InputSchema = z.object({
 
 export function registerReadProjectFilesTool(server: McpServer): void {
   server.registerTool(
-    "poc_read_project_files",
+    "protoship_read_project_files",
     {
       title: "Read Project Files",
       description: `Reads all source files in a scaffolded project and returns them alongside specialist review checklists.
@@ -38,7 +38,7 @@ The response includes a "review_dispatch" section with:
 After getting the response, follow the review_dispatch.instructions exactly:
 spawn 3 subagents IN PARALLEL, merge their findings, compute the composite score, present the report.
 
-When the review is complete, create an empty .poc-review-done file in the project directory
+When the review is complete, create an empty .protoship-review-done file in the project directory
 so future sessions know the review was completed.
 
 Args:
@@ -74,7 +74,7 @@ Skips: node_modules, .git, dist, build, binary files, lock files.`,
         const totalChars = files.reduce((sum, f) => sum + f.content.length, 0);
 
         // Check if review was already completed
-        const reviewDoneMarker = path.join(project_directory, ".poc-review-done");
+        const reviewDoneMarker = path.join(project_directory, ".protoship-review-done");
         const reviewAlreadyDone = fs.existsSync(reviewDoneMarker);
 
         const output = JSON.stringify({

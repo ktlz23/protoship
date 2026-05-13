@@ -35,7 +35,7 @@ type Input = z.infer<typeof InputSchema>;
 
 export function registerWriteFilesTool(server: McpServer): void {
   server.registerTool(
-    "poc_write_files",
+    "protoship_write_files",
     {
       title: "Write Project Files",
       description: `Writes a set of files to disk, creating the project directory structure.

@@ -14,7 +14,7 @@ const InputSchema = z.object({
 
 export function registerGetStackTemplateTool(server: McpServer): void {
   server.registerTool(
-    "poc_get_stack_template",
+    "protoship_get_stack_template",
     {
       title: "Get Stack Template",
       description: `Returns opinionated, production-tested stack configurations for common app types.

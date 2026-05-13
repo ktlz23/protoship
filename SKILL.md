@@ -1,5 +1,5 @@
 ---
-name: poc-restructurer
+name: protoship
 description: Transforms an AI-generated HTML prototype into a production-ready scaffolded project with quality review. Guides non-technical founders step by step from a single HTML file to deployable code.
 triggers:
   - "j'ai un prototype HTML"
@@ -20,7 +20,7 @@ You are helping a non-technical founder turn their AI-generated HTML prototype i
 
 ## Step 0: Session Recovery (ALWAYS FIRST)
 
-Before anything else, call `poc_list_projects` to check for in-progress work.
+Before anything else, call `protoship_list_projects` to check for in-progress work.
 
 **If a project exists with `status: "files_written"`** (scaffolded but review not done):
 ```
@@ -39,7 +39,7 @@ The code was generated but the quality review hasn't run yet.
 
 ## Step 1: Analyze the HTML
 
-Call `poc_read_html` with the provided file path or URL.
+Call `protoship_read_html` with the provided file path or URL.
 
 Present findings in plain language — no jargon:
 ```
@@ -62,7 +62,7 @@ Ask the `clarification_questions` from the tool response **one at a time** (or g
 
 ## Step 2: Stack Recommendation
 
-Based on the HTML analysis and clarification answers, call `poc_get_stack_template` without `stack_id` to get the list of stacks, then pick the best match.
+Based on the HTML analysis and clarification answers, call `protoship_get_stack_template` without `stack_id` to get the list of stacks, then pick the best match.
 
 Present the recommendation in plain, cost-conscious language:
 ```
@@ -88,7 +88,7 @@ Shall we go with [recommended stack]?
 
 ## Step 3: Check Prerequisites
 
-Call `poc_check_prerequisites` with the tools required by the chosen stack.
+Call `protoship_check_prerequisites` with the tools required by the chosen stack.
 
 **If everything is installed:**
 ```
@@ -108,13 +108,13 @@ Before we can start, you'll need to install a couple of things:
 
 Once you've installed them, let me know and I'll verify everything is good to go.
 ```
-→ Wait for confirmation → re-run `poc_check_prerequisites` → only then proceed to Step 4.
+→ Wait for confirmation → re-run `protoship_check_prerequisites` → only then proceed to Step 4.
 
 ---
 
 ## Step 4: Scaffold the Project
 
-Call `poc_get_stack_template` with the chosen `stack_id` to get the full template.
+Call `protoship_get_stack_template` with the chosen `stack_id` to get the full template.
 
 Announce:
 ```
@@ -132,7 +132,7 @@ Generate ALL files using the template's `scaffold_guide` — **real working code
 - Database schema (if applicable)
 - API routes (if applicable)
 
-Call `poc_write_files` with `stack_id` included.
+Call `protoship_write_files` with `stack_id` included.
 
 **On error:** Explain what went wrong in plain language + offer to retry or switch to an alternative stack.
 
@@ -157,7 +157,7 @@ Running a quality review now...
 
 ## Step 5: Quality Review (3 Parallel Specialists)
 
-Call `poc_read_project_files` with the `project_directory`.
+Call `protoship_read_project_files` with the `project_directory`.
 
 The response includes a `review_dispatch` object with instructions and 3 specialist checklists.
 
@@ -210,7 +210,7 @@ Your project is saved at: [project_directory]
 Next step: open the README.md for setup instructions.
 ```
 
-After presenting the report, create an empty `.poc-review-done` file in the project directory (path is in `review_dispatch.completion_marker`).
+After presenting the report, create an empty `.protoship-review-done` file in the project directory (path is in `review_dispatch.completion_marker`).
 
 ---
 
@@ -220,13 +220,13 @@ These apply whenever a step is interrupted (session closed, out of credits, erro
 
 | Situation | Recovery |
 |-----------|----------|
-| Session closed before review | `poc_list_projects` detects `status: "files_written"` → offer to resume at Step 5 |
-| Out of credits during scaffolding | If `poc_write_files` succeeded, state is saved → resume at Step 5 |
-| Out of credits during review | Files are on disk → re-call `poc_read_project_files` → re-spawn only failed specialists |
+| Session closed before review | `protoship_list_projects` detects `status: "files_written"` → offer to resume at Step 5 |
+| Out of credits during scaffolding | If `protoship_write_files` succeeded, state is saved → resume at Step 5 |
+| Out of credits during review | Files are on disk → re-call `protoship_read_project_files` → re-spawn only failed specialists |
 | User wants to start over | Ask confirmation → scaffold under a new `project_name` (existing folder is preserved) |
 | `directory_missing` status | Project folder was moved or deleted → start fresh |
 
-**General rule:** always check `poc_list_projects` at session start. The state file tells you exactly where to resume.
+**General rule:** always check `protoship_list_projects` at session start. The state file tells you exactly where to resume.
 
 ---
 

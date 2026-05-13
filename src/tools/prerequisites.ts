@@ -102,7 +102,7 @@ function checkTool(toolName: string): PrerequisiteCheck {
 
 export function registerPrerequisitesTool(server: McpServer): void {
   server.registerTool(
-    "poc_check_prerequisites",
+    "protoship_check_prerequisites",
     {
       title: "Check Prerequisites",
       description: `Verifies that required CLI tools and environment variables are available on the user's machine.
